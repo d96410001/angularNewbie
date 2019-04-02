@@ -8,6 +8,8 @@ export class ProductListComponent {
     imgWidth: number = 50;
     imgMargin: number = 2;
     pageTitle: string = 'ProductList Title';    
+
+    showImg: boolean = true;
     products: any[] = [{
         "productId": 1,
         "productName": "Leaf Rake",
@@ -38,4 +40,8 @@ export class ProductListComponent {
         "starRating": 4.8,
         "imageUrl": "https://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
     }];
+
+    toggleImg(): void {
+        this.showImg = !this.showImg;
+    }
 } 
