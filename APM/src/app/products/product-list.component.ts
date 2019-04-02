@@ -9,6 +9,8 @@ export class ProductListComponent {
     imgMargin: number = 2;
     pageTitle: string = 'ProductList Title';    
 
+    listFilter: string = '' ;
+
     showImg: boolean = true;
     products: any[] = [{
         "productId": 1,
