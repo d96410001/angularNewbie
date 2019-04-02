@@ -10,6 +10,7 @@ export class ProductListComponent {
     pageTitle: string = 'ProductList Title';    
 
     listFilter: string = '' ;
+    customerCCY: string = 'USD';
 
     showImg: boolean = true;
     products: any[] = [{
