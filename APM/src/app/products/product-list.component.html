@@ -38,7 +38,7 @@
               [style.margin.px]='imgMargin'
               [src]='product.imageUrl' [title]='product.productName'></td>
             <td>{{ product.productName | lowercase }}</td>
-            <td>{{ product.productCode | uppercase }}</td>
+            <td>{{ product.productCode | uppercase | convertToSpace: '-' }}</td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency: customerCCY:'symbol':'1.2-2'}}</td>
             <td><pm-star [rating]='product.starRating'></pm-star></td>
