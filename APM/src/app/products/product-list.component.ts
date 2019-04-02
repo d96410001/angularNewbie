@@ -7,13 +7,25 @@ import { IProduct } from "./product";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-    
+
     imgWidth: number = 50;
     imgMargin: number = 2;
-    pageTitle: string = 'ProductList Title';    
+    pageTitle: string = 'ProductList Title';
 
-    listFilter: string = '' ;
+    listFilter: string = '';
     customerCCY: string = 'USD';
+
+    get filterProducts(): IProduct[] {
+       
+        return this.listFilter ? this.performFilter(this.listFilter) : this.products;
+
+    };
+
+    performFilter(filterBy: string): IProduct[] {
+        let lowerCaseFilter = filterBy.toLocaleLowerCase();
+        return this.products.filter(
+            m => m.productName.toLowerCase().includes(lowerCaseFilter))
+    }
 
     showImg: boolean = true;
     products: IProduct[] = [{
@@ -50,7 +62,7 @@ export class ProductListComponent implements OnInit {
     toggleImg(): void {
         this.showImg = !this.showImg;
     }
-    
+
     ngOnInit(): void {
         console.log("Method not implemented.");
     }
