@@ -2,11 +2,8 @@ import { Component } from "@angular/core";
 
 @Component({
   selector:'pm-root',
-  template:`<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!!
-  </h1>
-  ... Starter Files LA ...
+  template:`<div><h1>{{ pageTitLe }}</h1>
+  <pm-products></pm-products>
 </div>
    `
 })
