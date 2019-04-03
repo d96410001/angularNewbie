@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
     customerCCY: string = 'USD';
 
     get filterProducts(): IProduct[] {
-       
+
         return this.listFilter ? this.performFilter(this.listFilter) : this.products;
 
     };
@@ -25,6 +25,10 @@ export class ProductListComponent implements OnInit {
         let lowerCaseFilter = filterBy.toLocaleLowerCase();
         return this.products.filter(
             m => m.productName.toLowerCase().includes(lowerCaseFilter))
+    }
+
+    onRatingClicked(message: string): void {
+        this.pageTitle = 'Product list ' + message;
     }
 
     showImg: boolean = true;
