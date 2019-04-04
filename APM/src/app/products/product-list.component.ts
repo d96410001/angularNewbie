@@ -13,12 +13,14 @@ export class ProductListComponent implements OnInit {
 
     }
 
+    showImg: boolean = true;
+    products: IProduct[];
     imgWidth: number = 50;
     imgMargin: number = 2;
     pageTitle: string = 'ProductList Title';
     filteredProducts: IProduct[] = [];
 
-    _listFilter: string = '';
+    _listFilter:string = "cart";
     customerCCY: string = 'USD';
     errorMessage: string = "";
     get listFilter(): string {
@@ -39,8 +41,6 @@ export class ProductListComponent implements OnInit {
         this.pageTitle = 'Product list ' + message;
     }
 
-    showImg: boolean = true;
-    products: IProduct[];
 
     toggleImg(): void {
         this.showImg = !this.showImg;
@@ -48,9 +48,11 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.productService.getProducts().subscribe(
-            products => this.products = products,
+            products => {
+                this.products = products;
+                this.filteredProducts = this.products;
+            },
             error => this.errorMessage = <any>error
         );
-        this.listFilter = 'cart';
     }
 } 
