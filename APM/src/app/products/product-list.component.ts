@@ -10,22 +10,24 @@ import { ProductService } from "./product.service";
 export class ProductListComponent implements OnInit {
 
     constructor(private productService: ProductService) {
-        
+
     }
 
     imgWidth: number = 50;
     imgMargin: number = 2;
     pageTitle: string = 'ProductList Title';
+    filteredProducts: IProduct[] = [];
 
-    listFilter: string = '';
+    _listFilter: string = '';
     customerCCY: string = 'USD';
-    
-
-    get filterProducts(): IProduct[] {
-
-        return this.listFilter ? this.performFilter(this.listFilter) : this.products;
-
-    };
+    errorMessage: string = "";
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+    }
 
     performFilter(filterBy: string): IProduct[] {
         let lowerCaseFilter = filterBy.toLocaleLowerCase();
@@ -45,8 +47,10 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("Method not implemented.");
-        this.products = this.productService.getProducts();
+        this.productService.getProducts().subscribe(
+            products => this.products = products,
+            error => this.errorMessage = <any>error
+        );
         this.listFilter = 'cart';
     }
 } 
