@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from './product';
+import { ProductService } from './product.service';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -9,27 +10,26 @@ import { IProduct } from './product';
 export class ProductDetailComponent implements OnInit {
   product: IProduct;
   pageTitle: string = 'Product Detail';
-
+  errorMessage: string;
   constructor(
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private productService: ProductService ) { }
 
   ngOnInit() {
     let id = +this.route.snapshot.paramMap.get('id');
-
     this.pageTitle += `: ${id}`;
-    this.product = {
-      "productId": 8,
-      "productName": "Saw",
-      "productCode": "TBX-0022",
-      "releaseDate": "May 15, 2016",
-      "description": "15-inch steel blade hand saw",
-      "price": 11.55,
-      "starRating": 3.7,
-      "imageUrl": "https://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png"
-    };
-  }
+    this.productService.getProducts().subscribe(
+      products => {
+          this.product = products.find(p => p.productId == id)
+      },
+      error => this.errorMessage = <any>error
+    );
+  } 
+
   onBack():void{
     this.router.navigate(['/product']);
   }
+
+  
 }
